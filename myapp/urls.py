@@ -9,6 +9,6 @@ urlpatterns = [
 	path('FILA/',Fila, name='fila_bts-page'),
 	path('addproduct/',AddProduct, name='addproduct-page'),
 	path('allproduct/',ProductTotal, name='allproduct-page'),
-	path('register/',Register, name='register-page'),
+	path('register/',Register, name='register-page'), #locallhost:8000/register
 
 ]
