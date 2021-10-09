@@ -1,0 +1,35 @@
+{% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
+
+{% block article %}
+  
+  
+      <div class="container" style="margin-bottom: 50px"> 
+  <!-- หน้าที่ใช้สำหรับเพิ่มสินค้าลง database โดนที่ไม่ต้องเข้าไปเพิ่มในหน้า Django administration -->
+      <h2>เข้าสู่ระบบ</h2>
+  <p>กรุณากรอกข้อมูลของคุณ</p>
+  <form method="POST" > 
+    <!-- enctype="multipart/form-data" ต้องใส่ เมื่อเกี่ยวกับไฟล์ต่างๆ ex. .pdf .jpg etc. -->
+    {% csrf_token %} <!--ระบบ security of Django-->
+
+
+
+    <div class="form-group">
+      <label for="username">อีเมลล์</label>
+      <input type="text" class="form-control" id="username" name="username">
+    </div>
+
+    <div class="form-group">
+      <label for="password">รหัสผ่าน</label>
+      <input type="password" class="form-control" id="password" name="password">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+  </form>
+      
+  
+      </div>
+{% endblock article %}
+
