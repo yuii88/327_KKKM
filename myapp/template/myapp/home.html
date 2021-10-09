@@ -1,0 +1,26 @@
+{% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
+
+{% block article %}
+  <div class="row">
+    <div class="col-sm-4">
+      <img src="https://cdn.shopify.com/s/files/1/1374/2665/products/FS2RSC2B03X_GRP_2.jpg?v=1584089272" width="200">
+      <a href="{% url 'fila_bts-page' %}"> <h3> {{ product1 }} </h3></a>
+       <!-- {{ product1 }} คือ Django template tag //-->
+       <!-- product1 is a key of dictionary -->
+      <p>ม่วง ม่วง ม่วง</p>
+      
+    </div>
+    <div class="col-sm-4">
+      <img src="https://hypebeast.com/image/2019/06/uniqulo-ut-bts-line-friends-bt21-capsule-collection-2.jpg" width="300">
+      <h3>{{ product2 }}</h3>
+      <p>ก็ สีดำอะ</p>
+      
+    </div>
+    <div class="col-sm-4">
+      <img src="https://cf.shopee.co.th/file/8b342ce0b7b0446163c6e8c75b27453d" width="250" >
+      <h3>{{ product3 }}</h3>        
+      <p>สีขาว</p>
+      
+    </div>
+  </div>
+{% endblock article %}

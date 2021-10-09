@@ -1,0 +1,53 @@
+{% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
+
+{% block article %}
+
+
+
+  
+      <h4><br>สินค้าทั้งหมดภายในร้าน</h4>
+      <p>สามารถเลือกชมได้เลยค่ะ<br>นำเข้าจากต่างประเทศ</br></p>
+      <div class="container-fluid"> 
+
+          <div class="row" >
+            {% for pd in product %} <!-- Ref product ที่เป็น key -->
+              <div class="col-sm-4">
+                <div class="card" style="width:320px; height: 550px;">
+                        {% if pd.image %}
+                            <img class="card-img-top" src="{{ pd.image.url }}" width="400" style="width: 300px; height: 200px;overflow: hidden;">
+                        {% elif pd.imageurl != None %}
+                            <img class="card-img-top" src="{{ pd.imageurl }}" width="400" style="width: 300px; height: 200px;overflow: hidden;">
+                        {% else %}
+                            <img class="card-img-top" src="/media/default.png" width="400" style="width: 300px; height: 200px;overflow: hidden;">
+                        {% endif %}
+
+                        <div class="card-body">
+                          <h1 class="card-title">{{ pd.name }}</h1>
+                          <p>{{pd.price}} บาท/หน่วย</p>
+                          <p>{{pd.detail|linebreaks|truncatechars_html:100}}</p>
+                          <!--|truncatechars_html:1 -> function cut character --> 
+
+                          {% if pd.quantity > 0 %}
+                            <p>สินค้ามีในสต๊อก: {{pd.quantity}} {{ pd.unit }} </p>
+                          {% else %}
+                            <p><font color="red" >สินค้าอาจไม่มีในสต๊อก <br>กรุณาติดต่อแอดมิน</font></p>
+
+
+                          {% endif %}  
+
+                          {% if pd.instock == True %}
+                            <a href="#" class='btn btn-success'>สั่งซื้อ</a>
+                          {% else %}
+                            <a href="#" class='btn btn-warning'>สินค้าหมดแล้ว</a>
+                          {% endif %}
+                        </div>
+                </div>
+
+                       <br><br> <!-- hr = horizatal row เส้นขีดๆ, br = ขึ้นบรรทัดใหม่ -->
+              </div>
+            {% endfor %}
+
+        </div>
+      </div>
+{% endblock article %}
+

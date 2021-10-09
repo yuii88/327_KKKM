@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>KKKM Shopping</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center" style="margin-bottom: 0;">
+
+  <h1>ขายของกันไหม - Kai Khong Kun Mai</h1>
+
+  <h4><a href="{% url 'home-page' %}">หน้าแรก</a>|
+  <a href="{% url 'about-page' %}">เกี่ยวกับ</a>|
+  <a href="{% url 'contact-page' %}">ติดต่อเรา </a>|
+  <a href="{% url 'allproduct-page' %}">สินค้าทั้งหมด</a>
+
+  {% if user.is_authenticated %} <!--จะshow when you login-->
+    |<a href="{% url 'addproduct-page' %}">เพิ่มสินค้า</a>
+  {% else %}
+    |<a href="{% url 'register-page' %}">สมัครสมาชิก</a>
+  {% endif %}
+
+  </h4>
+
+</div>
+
+
+<nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Kai Khong Kun Mai</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample01">
+        <ul class="navbar-nav me-auto mb-2">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdown01">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="/">ขายของกันไหม - Kai Khong Kun Mai</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a href="{% url 'about-page' %}">เกี่ยวกับ</a>|
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'contact-page' %}">ติดต่อเรา </a>|
+                  </li>
+                  <li class="nav-item">
+                    <a href="{% url 'allproduct-page' %}">สินค้าทั้งหมด</a>
+                  </li>   
+
+                  {% if user.is_authenticated %} <!--จะshow when you login-->
+                    <a href="{% url 'addproduct-page' %}">เพิ่มสินค้า</a>
+                  {% else %}
+                    <a href="{% url 'register-page' %}">สมัครสมาชิก</a>
+                  {% endif %} 
+
+
+                
+                
+                  
+                          <a class="btn btn-primary" href="/register/">Register</a>&nbsp&nbsp&nbsp 
+                          <a class="btn btn-primary" href="/login/">Login</a>
+                  
+
+                
+  </div>  
+    
+</nav>
+  
+<div class="container">
+  {% block article %}
+  {% endblock article %}
+</div>
+
+</body>
+</html>

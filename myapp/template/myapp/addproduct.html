@@ -1,0 +1,60 @@
+{% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
+
+{% block article %}
+  
+  
+      <div class="container" style="margin-bottom: 50px"> 
+  <!-- หน้าที่ใช้สำหรับเพิ่มสินค้าลง database โดนที่ไม่ต้องเข้าไปเพิ่มในหน้า Django administration -->
+      <h2>เพิ่มสินค้าในระบบ</h2>
+  <p>คุณสามารถเพิ่มสินค้าเข้าไปในระบบได้ (เฉพาะแอดมินเท่านั้น)</p>
+  <form method="POST" enctype="multipart/form-data"> 
+    <!-- enctype="multipart/form-data" ต้องใส่ เมื่อเกี่ยวกับไฟล์ต่างๆ ex. .pdf .jpg etc. -->
+    {% csrf_token %} <!--ระบบ security of Django-->
+
+    <div class="form-group">
+      <label for="name">ชื่อสินค้า:</label>
+      <input type="text" class="form-control" id="name" name="name">
+    </div>
+
+    <div class="form-group">
+      <label for="price">ราคา:</label>
+      <input type="text" class="form-control" id="price" name="price">
+    </div>
+
+    <div class="form-group">
+      <label for="detail">รายละเอียด:</label>
+      <input type="text" class="form-control" id="detail" name="detail">
+    </div>
+
+    <div class="form-group">
+      <label for="imageurl">URL รูปสินค้า:</label>
+      <input type="text" class="form-control" id="imageurl" name="imageurl">
+    </div>
+
+    <div class="form-group">
+      <label for="quantity">จำนวนสินค้า:</label>
+      <input type="text" class="form-control" id="quantity" name="quantity">
+    </div>
+
+
+    <div class="form-group">
+      <label for="unit">หน่วยสินค้า:</label>
+      <input type="text" class="form-control" id="unit" name="unit">
+    </div>
+
+
+    <div class="form-group">
+      <label for="imageupload">หน่วยสินค้า:</label>
+      <input type="file" class="form-control" id="imageupload" name="imageupload">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+  </form>
+      
+  
+      </div>
+{% endblock article %}
+

@@ -1,0 +1,46 @@
+{% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
+
+{% block article %}
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+
+
+      <img src="https://cdn.shopify.com/s/files/1/1374/2665/products/FS2RSC2B03X_GRP_2.jpg?v=1584089272" width="200">
+      <h3> {{ product1 }} </h3>
+       <!-- {{ product1 }} คือ Django template tag //-->
+       <!-- product1 is a key of dictionary -->
+  
+      <h3>BTS FILA: COLLABORATION OF THE YEAR!</h3>
+      <p>Throughout this article, we’ll be looking at the famous collaboration: BTS FILA.
+
+        Known to millions worldwide, BTS is a prominent K-pop .“BTS, an acronym of Bangtan Sonyeondan or Beyond the Scene, is a Grammy-nominated South Korean Group that makes daily headlines around the globe since its debut in June 2013. There are seven members of BTS: RM, Jin, SUGA, J-Hope, Jimin, and V. BTS has gained popularity because of its personalized music, its top-notch performances, and the way its members interact with the public.
+        In October 2020, FILA, the most prominent Italian sportswear brand, announced BTS as their global brand ambassador.
+        A recent release states that BTS will wear Fila across North and South America, Europe, and Asia. The energetic and unique personalities of the BTS group make it an optimal fit as the brand ambassador of FILA.
+
+        Let’s Find out what is on the BTS X FILA collaboration apparel and some information on members of the BTS band.</p>
+        <p>ม่วง ม่วง ม่วง</p>
+
+
+      
+    </div>
+    <div class="col-sm-4">
+      <img src="https://hypebeast.com/image/2019/06/uniqulo-ut-bts-line-friends-bt21-capsule-collection-2.jpg" width="300">
+      <h3>{{ product2 }}</h3>
+      <p>ก็ สีดำอะ</p>
+      
+    </div>
+    <div class="col-sm-4">
+      <img src="https://cf.shopee.co.th/file/8b342ce0b7b0446163c6e8c75b27453d" width="250" >
+      <h3>{{ product3 }}</h3>        
+      <p>สีขาว</p>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock article %}
