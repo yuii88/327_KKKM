@@ -19,13 +19,16 @@ from . import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from django.contrib.auth import views as auth_views
 
 
 # include คือ การเลิ้งค์โปรเจคกับแอพเข้ากัน
 # path คือ การทำให้เว็บไซต์เรามี url ย่อย
 urlpatterns = [
 	path('admin/', admin.site.urls),
-	path('',include('myapp.urls'))
+	path('',include('myapp.urls')),
+	path('login/',auth_views.LoginView.as_view(template_name='myapp/login.html'),name='login'),
+	path('logout/',auth_views.LogoutView.as_view(template_name='myapp/logout.html'),name='logout'),
 	# บรรทัดที่ 22 เป็นการทำให้โปรเจคลิ้งค์กับ urls ของแอพ
 ]
 
