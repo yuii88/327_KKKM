@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Allproduct
 from django.core.files.storage import FileSystemStorage
@@ -30,6 +30,11 @@ def Fila(request):
 
 #เป็นการดึงมาจากหน้า addproduct.html หากมีการกด ส่งหรือsubmit (POST=submit) data 
 def AddProduct(request):
+
+	if request.user.profile.usertype != 'admin':
+		return redirect('home-page')
+
+
 	if request.method == 'POST' and request.FILES['imageupload']:
 		data = request.POST.copy()
 		name = data.get('name')
