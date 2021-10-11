@@ -65,6 +65,7 @@
                 </ul>
 
                           {% if user.is_authenticated %}
+                            <img src="{{user.profile.photo.url}}" width="40" height="40" class="rounded-circle">&nbsp&nbsp
                             <p style="color: white; margin-top: 10px">สวัสดีคุณ&nbsp&nbsp {{ user.first_name }}
                             {{ user.last_name }} &nbsp&nbsp </p>
                             <a class="btn btn-light" href="{% url 'logout' %}">ออกจากระบบ</a>
