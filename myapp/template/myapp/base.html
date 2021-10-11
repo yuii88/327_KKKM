@@ -57,8 +57,11 @@
 
 
                 </ul>
-                
-                  
+
+                          {% if user.is_authenticated %}
+                          <p style="color: white; margin-top: 10px">สวัสดีคุณ&nbsp&nbsp {{ user.first_name }}
+                          {{ user.last_name }} &nbsp&nbsp</p>
+                          {% endif %}
                           <a class="btn btn-primary" href="{% url 'register-page' %}">สมัครสมาชิก</a>&nbsp&nbsp&nbsp 
                           <a class="btn btn-primary" href="/login/">เข้าสู่ระบบ</a>
                   
