@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Allproduct
+from .models import Allproduct, Profile
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login
 #HttpResponse คือ function สำหรับทำให้แสดงข้อความหน้าเว็บไซต์ได้
 
 #เกี่ยวกับหน้า homepage 
@@ -27,7 +28,7 @@ def Contact(request):
 def Fila(request):
 	return render(request, 'myapp/FILA.html')	
 
-
+#from django.contrib.auth.models import User
 #เป็นการดึงมาจากหน้า addproduct.html หากมีการกด ส่งหรือsubmit (POST=submit) data 
 def AddProduct(request):
 
@@ -89,6 +90,14 @@ def Register(request):
 		newuser.last_name = last_name
 		newuser.set_password(password)
 		newuser.save() 
+
+		profile = Profile()
+		profile.user = User.objects.get(username=email)
+		profile.save()
+
+		#from django.contrib.auth import authenticate,login
+		user = authenticate(username=email,password=password) 
+		login(request,user) #ให้คนที่มีการ login ในระบบทำการloginเข้าไปเลย (Auto login)
 
 	return render(request,'myapp/register.html')
 
