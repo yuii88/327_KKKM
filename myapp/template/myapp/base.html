@@ -38,8 +38,14 @@
                     <a class="nav-link" href="{% url 'allproduct-page' %}">สินค้าทั้งหมด</a>
                   </li> 
 
+                  {% if user.is_authenticated and user.profile.usertype == 'member' %}
                   <li class="nav-item">
-                    {% if user.is_authenticated %} <!--จะshow when you login-->
+                    <a class="nav-link" href="#">รายการสั่งซื้อ</a>
+                  </li> 
+                  {% endif %}
+
+                  <li class="nav-item">
+                    {% if user.is_authenticated and user.profile.usertype == 'admin' %} <!--จะshow when you login-->
                       <a class="nav-link" href="{% url 'addproduct-page' %}">เพิ่มสินค้า</a>
                     {% endif %}
                   </li>
@@ -59,12 +65,17 @@
                 </ul>
 
                           {% if user.is_authenticated %}
-                          <p style="color: white; margin-top: 10px">สวัสดีคุณ&nbsp&nbsp {{ user.first_name }}
-                          {{ user.last_name }} &nbsp&nbsp</p>
+                            <p style="color: white; margin-top: 10px">สวัสดีคุณ&nbsp&nbsp {{ user.first_name }}
+                            {{ user.last_name }} &nbsp&nbsp[ {{user.profile.usertype}} ]&nbsp </p>
+                            <a class="btn btn-light" href="{% url 'logout' %}">ออกจากระบบ</a>
+                          {% else %}
+                            <a class="btn btn-primary" href="{% url 'register-page' %}">สมัครสมาชิก</a>&nbsp&nbsp&nbsp 
+                            <a class="btn btn-primary" href="{% url 'login' %}">เข้าสู่ระบบ</a>
+
                           {% endif %}
-                          <a class="btn btn-primary" href="{% url 'register-page' %}">สมัครสมาชิก</a>&nbsp&nbsp&nbsp 
-                          <a class="btn btn-primary" href="/login/">เข้าสู่ระบบ</a>
-                  
+                          
+
+                            
 
                 
   </div>  
