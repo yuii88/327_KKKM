@@ -1,26 +1,48 @@
 {% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
 
 {% block article %}
-  <div class="row">
-    <div class="col-sm-4">
-      <img src="https://cdn.shopify.com/s/files/1/1374/2665/products/FS2RSC2B03X_GRP_2.jpg?v=1584089272" width="200">
-      <a href="{% url 'fila_bts-page' %}"> <h3> {{ product1 }} </h3></a>
-       <!-- {{ product1 }} คือ Django template tag //-->
-       <!-- product1 is a key of dictionary -->
-      <p>ม่วง ม่วง ม่วง</p>
-      
-    </div>
-    <div class="col-sm-4">
-      <img src="https://hypebeast.com/image/2019/06/uniqulo-ut-bts-line-friends-bt21-capsule-collection-2.jpg" width="300">
-      <h3>{{ product2 }}</h3>
-      <p>ก็ สีดำอะ</p>
-      
-    </div>
-    <div class="col-sm-4">
-      <img src="https://cf.shopee.co.th/file/8b342ce0b7b0446163c6e8c75b27453d" width="250" >
-      <h3>{{ product3 }}</h3>        
-      <p>สีขาว</p>
-      
-    </div>
-  </div>
+  <h4><br>สินค้าล่าสุด</h4>
+      <p>สามารถเลือกชมได้เลยค่ะ<br>นำเข้าจากต่างประเทศ</p>
+      <div class="container-fluid"> 
+
+          <div class="row" >
+            {% for pd in product %} <!-- Ref product ที่เป็น key -->
+              <div class="col-sm-4">
+                <div class="card" style="width:320px; height: 550px;">
+                        {% if pd.image %}
+                            <img class="card-img-top" src="{{ pd.image.url }}" width="400" style="width: 300px; height: 200px;overflow: hidden;">
+                        {% elif pd.imageurl != None %}
+                            <img class="card-img-top" src="{{ pd.imageurl }}" width="400" style="width: 300px; height: 200px;overflow: hidden;">
+                        {% else %}
+                            <img class="card-img-top" src="/media/default.png" width="400" style="width: 300px; height: 200px;overflow: hidden;">
+                        {% endif %}
+
+                        <div class="card-body">
+                          <h1 class="card-title">{{ pd.name }}</h1>
+                          <p>{{pd.price}} บาท/หน่วย</p>
+                          <p>{{pd.detail|linebreaks|truncatechars_html:100}}</p>
+                          <!--|truncatechars_html:1 -> function cut character --> 
+
+                          {% if pd.quantity > 0 %}
+                            <p>สินค้ามีในสต๊อก: {{pd.quantity}} {{ pd.unit }} </p>
+                          {% else %}
+                            <p><font color="red" >สินค้าอาจไม่มีในสต๊อก <br>กรุณาติดต่อแอดมิน</font></p>
+
+
+                          {% endif %}  
+
+                          {% if pd.instock == True %}
+                            <a href="#" class='btn btn-success'>สั่งซื้อ</a>
+                          {% else %}
+                            <a href="#" class='btn btn-warning'>สินค้าหมดแล้ว</a>
+                          {% endif %}
+                        </div>
+                </div>
+
+                       <br><br> <!-- hr = horizatal row เส้นขีดๆ, br = ขึ้นบรรทัดใหม่ -->
+              </div>
+            {% endfor %}
+
+        </div>
+      </div>
 {% endblock article %}
