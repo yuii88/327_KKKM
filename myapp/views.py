@@ -10,7 +10,11 @@ from django.contrib.auth import authenticate,login
 # Create your views here.
 def Home(request):
 	product = Allproduct.objects.all().order_by('id').reverse()[:3]
-	context = {'product':product}
+	preorder = Allproduct.objects.filter(quantity__lte=0) 
+	# quanlity__lte=0 (หาค่าที่ quantity <= 0 - lte is <= ) (underscore 2 ตัว)
+	#quantity__gt=0 (หาค่าที่ quantity > 0 - gt is >)
+	#quantity__gte=0 (หาค่าที่ quantity >= 5 - gte is >=)
+	context = {'product':product,'preorder':preorder}
 	return render(request, 'myapp/home.html',context)
 	
 def About(request):

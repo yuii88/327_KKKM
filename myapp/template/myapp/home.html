@@ -45,4 +45,51 @@
 
         </div>
       </div>
+
+      <div class="container">
+          <center><a href="{% url 'allproduct-page' %}"><h1>ดูสินค้าทั้งหมด</h1></a></center>
+          <hr>
+      </div>
+
+
+
+      <h4><br>สินค้า Preorder</h4>
+      <p> preorder ล่วงหน้า 14-18 วัน<br>(สินค้านำเข้าจากต่างประเทศ)</p>
+      <div class="container-fluid"> 
+
+          <div class="row" >
+            {% for pd in preorder %} <!-- Ref product ที่เป็น key -->
+              <div class="col-sm-4">
+                <div class="card" style="width:320px; height: 550px;">
+                        {% if pd.image %}
+                            <img class="card-img-top" src="{{ pd.image.url }}" width="400" style="width: 300px; height: 200px;overflow: hidden;">
+                        {% elif pd.imageurl != None %}
+                            <img class="card-img-top" src="{{ pd.imageurl }}" width="400" style="width: 300px; height: 200px;overflow: hidden;">
+                        {% else %}
+                            <img class="card-img-top" src="/media/default.png" width="400" style="width: 300px; height: 200px;overflow: hidden;">
+                        {% endif %}
+
+                        <div class="card-body">
+                          <h1 class="card-title">{{ pd.name }}</h1>
+                          <p>{{pd.price}} บาท/หน่วย</p>
+                          <p>{{pd.detail|linebreaks|truncatechars_html:100}}</p>
+                          <!--|truncatechars_html:1 -> function cut character --> 
+
+                          {% if pd.quantity > 0 %}
+                            <p>สินค้ามีในสต๊อก: {{pd.quantity}} {{ pd.unit }} </p>
+                          {% else %}
+                            <p><font color="red" >สินค้าหมดแล้ว สามารถกดpreorderได้<br>กรุณาติดต่อแอดมิน</font></p>
+                            <a href="#" class="btn btn-warning">Pre-Order</a>
+                          {% endif %}  
+
+                        </div>
+                </div>
+
+                       <br><br> <!-- hr = horizatal row เส้นขีดๆ, br = ขึ้นบรรทัดใหม่ -->
+              </div>
+            {% endfor %}
+
+        </div>
+      </div>
+
 {% endblock article %}
