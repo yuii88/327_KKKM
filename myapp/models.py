@@ -25,3 +25,13 @@ class Allproduct(models.Model):
 	def __str__(self): # def ทำให้ชื่อสินค้าแสดงบนหน้า แอดสินค้า admin
 		return self.name
 
+class Cart(models.Model):
+	user = models.ForeignKey(User,on_delete=models.CASCADE) #อ้างอิงถึง User
+	productid = models.CharField(max_length=100) # id from database
+	productname = models.CharField(max_length=100)
+	price = models.IntegerField()
+	quantity = models.IntegerField()
+	total = models.IntegerField()
+	stamp = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+
+
