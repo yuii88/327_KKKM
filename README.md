@@ -1,6 +1,7 @@
 # 327_KKKM
  \* project 327 in 2021 from 3rd year \*
  
+ Cr. uncle-engineer course
  
 ## Functional Requirements
 1. The system must allow users to register and create profiles that include (at least) real name,
