@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Allproduct, Profile
+from .models import *
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
+
 #HttpResponse คือ function สำหรับทำให้แสดงข้อความหน้าเว็บไซต์ได้
 
 #เกี่ยวกับหน้า homepage 
@@ -98,6 +99,23 @@ def Register(request):
 		login(request,user) #ให้คนที่มีการ login ในระบบทำการloginเข้าไปเลย (Auto login)
 
 	return render(request,'myapp/register.html')
+
+
+def AddtoCart(request,pid):
+	username = request.user.username
+	user = User.objects.get(username=username)
+	check = Allproduct.objects.get(id=pid)
+
+	newcart = Cart()
+	newuser.user = user
+	newcart.productid = pid 
+	newcart.productname = check.name
+	newcart.price = int(check.price)
+	newcart.quantity = 1
+	calculate = int(check.price)*1
+	newcart.total = calculate
+	newcart.save()
+	return redirect('allproduct-page')
 
 
 
