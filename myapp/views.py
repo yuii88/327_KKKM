@@ -9,14 +9,8 @@ from django.contrib.auth import authenticate,login
 #เกี่ยวกับหน้า homepage 
 # Create your views here.
 def Home(request):
-	# request คือ สิ่งที่ร้องขอจากเว็บไซต์
-	#return HttpResponse('<h2>hello world</h2>')
-	
-	product1 = 'เสื้อสีม่วงFILA'
-	product2 = 'เสื้อสีดำ'
-	product3 = 'เสื้อ Love YourSelf'
-
-	context = {'product1':product1,'product2':product2,'product3':product3}
+	product = Allproduct.objects.all().order_by('id').reverse()[:3]
+	context = {'product':product}
 	return render(request, 'myapp/home.html',context)
 	
 def About(request):
