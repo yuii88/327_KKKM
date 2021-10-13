@@ -1,0 +1,20 @@
+{% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
+
+{% block article %}
+
+
+
+  
+<div class="container">
+      <h3>รถเข็นสินค้าของฉัน</h3>
+      
+            {% for pd in mycart %}
+                 <p>| {{pd.stamp}} | {{pd.productid}} | {{pd.productname}} | {{pd.price}} | 
+                 {{pd.quantity}} | {{pd.total}}</p> 
+            <hr>
+            {% endfor %}
+      
+
+</div>
+{% endblock article %}
+

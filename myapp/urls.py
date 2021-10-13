@@ -11,5 +11,6 @@ urlpatterns = [
 	path('allproduct/',ProductTotal, name='allproduct-page'),
 	path('register/',Register, name='register-page'), #locallhost:8000/register
 	path('addtocart/<int:pid>/',AddtoCart,name='addtocart-page'), #<int:pid> is number of product
+	path('mycart/',MyCart,name='mycart-page'),
 
 ]
