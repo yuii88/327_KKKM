@@ -101,14 +101,16 @@ def Register(request):
 	return render(request,'myapp/register.html')
 
 
-def AddtoCart(request,pid):
+def AddtoCart(request,pid): #pid is product id which get from url (<int:pid>)
+	# localhost:8000/addtocard/4 (<int:pid>) เท่ากับ {% url 'addtocard-page' pd.id %}
+	print('CURRENT USER :',request.user)
 	username = request.user.username
 	user = User.objects.get(username=username)
 	check = Allproduct.objects.get(id=pid)
 
 	newcart = Cart()
-	newuser.user = user
-	newcart.productid = pid 
+	newcart.user = user
+	newcart.productid = pid
 	newcart.productname = check.name
 	newcart.price = int(check.price)
 	newcart.quantity = 1
