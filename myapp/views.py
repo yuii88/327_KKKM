@@ -119,7 +119,10 @@ def AddtoCart(request,pid): #pid is product id which get from url (<int:pid>)
 	newcart.save()
 	return redirect('allproduct-page')
 
-
-
-
+def MyCart(request):
+	username = request.user.username #ออกมาเป็น string
+	user = User.objects.get(username=username) #ออกมาเป็น objects
+	mycart = Cart.objects.filter(user=user) #ใช้ .get ไม่ได้ เพราะ multiple (มีหลายอัน) ต้องใช้ filter เพราะ มีหลาย record 
+	context = {'mycart':mycart}
+	return render(request,'myapp/mycart.html',context)
 
