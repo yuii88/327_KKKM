@@ -103,7 +103,7 @@ def Register(request):
 
 def AddtoCart(request,pid): #pid is product id which get from url (<int:pid>)
 	# localhost:8000/addtocard/4 (<int:pid>) เท่ากับ {% url 'addtocard-page' pd.id %}
-	print('CURRENT USER :',request.user) #test
+	#print('CURRENT USER :',request.user) #test
 	username = request.user.username
 	user = User.objects.get(username=username)
 	check = Allproduct.objects.get(id=pid) # check รายละเอียด ใน model 
@@ -117,6 +117,12 @@ def AddtoCart(request,pid): #pid is product id which get from url (<int:pid>)
 		calculate = newcart.price* newquan
 		newcart.total = calculate
 		newcart.save()
+
+		count = Cart.objects.filter(user=user).count() # นับจำนวนorder (productประเภทเดียวกัน)
+		print('COUNT: ',count)
+
+
+
 		return redirect('allproduct-page')
 	except:
 
