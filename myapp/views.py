@@ -103,21 +103,33 @@ def Register(request):
 
 def AddtoCart(request,pid): #pid is product id which get from url (<int:pid>)
 	# localhost:8000/addtocard/4 (<int:pid>) เท่ากับ {% url 'addtocard-page' pd.id %}
-	print('CURRENT USER :',request.user)
+	print('CURRENT USER :',request.user) #test
 	username = request.user.username
 	user = User.objects.get(username=username)
-	check = Allproduct.objects.get(id=pid)
+	check = Allproduct.objects.get(id=pid) # check รายละเอียด ใน model 
+	
+	try:
+		# กรณีที่ตัวสินค้ามีซ้ำ
+		newcart = Cart.objects.get(user=user,productid=str(pid)) 
+		#print('EXISTS: ',pcheck.exists())
+		newquan = newcart.quantity + 1
+		newcart.quantity= newquan
+		calculate = newcart.price* newquan
+		newcart.total = calculate
+		newcart.save()
+		return redirect('allproduct-page')
+	except:
 
-	newcart = Cart()
-	newcart.user = user
-	newcart.productid = pid
-	newcart.productname = check.name
-	newcart.price = int(check.price)
-	newcart.quantity = 1
-	calculate = int(check.price)*1
-	newcart.total = calculate
-	newcart.save()
-	return redirect('allproduct-page')
+		newcart = Cart()
+		newcart.user = user
+		newcart.productid = pid
+		newcart.productname = check.name
+		newcart.price = int(check.price)
+		newcart.quantity = 1
+		calculate = int(check.price)*1
+		newcart.total = calculate
+		newcart.save()
+		return redirect('allproduct-page')
 
 def MyCart(request):
 	username = request.user.username #ออกมาเป็น string
