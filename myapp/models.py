@@ -7,6 +7,7 @@ class Profile(models.Model):
 	user = models.OneToOneField(User,on_delete=models.CASCADE)
 	photo = models.ImageField(upload_to="gallery_photo_profile",null=True,blank=True,default='dafaultprofile.png')
 	usertype = models.CharField(max_length=100,default='member')
+	cartquan = models.IntegerField(default=0) #เก็บจำนวนสินค้าในตะกร้า
 
 	def __str__(self):
 		return self.user.first_name
