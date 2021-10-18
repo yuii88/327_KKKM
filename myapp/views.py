@@ -66,8 +66,8 @@ def AddProduct(request):
 	return render(request, 'myapp/addproduct.html')		
 
 def ProductTotal(request):
+	
 	product = Allproduct.objects.all().order_by('id').reverse() #ดึงข้อมูลมาทั้งหมดจากmodel (Allproduct) 
-
 	context = {'product':product} #เอาข้อมูลที่เอามาจาก Alproduct โยนไปใน 'product'
 	return render(request, 'myapp/allproduct.html',context)	
 
@@ -118,10 +118,12 @@ def AddtoCart(request,pid): #pid is product id which get from url (<int:pid>)
 		newcart.total = calculate
 		newcart.save()
 
-		count = Cart.objects.filter(user=user).count() # นับจำนวนorder (productประเภทเดียวกัน)
-		print('COUNT: ',count)
-
-
+		# update จำนวนที่มีจำนวนของตะกร้าสินค้า ณ ตอนนี้
+		count = Cart.objects.filter(user=user)
+		count = sum([ c.quantity for c in count])
+		updatequan = Profile.objects.get(user=user)
+		updatequan.cartquan = count
+		updatequan.save()
 
 		return redirect('allproduct-page')
 	except:
@@ -135,12 +137,34 @@ def AddtoCart(request,pid): #pid is product id which get from url (<int:pid>)
 		calculate = int(check.price)*1
 		newcart.total = calculate
 		newcart.save()
+
+		count = Cart.objects.filter(user=user)
+		count = sum([ c.quantity for c in count])
+		updatequan = Profile.objects.get(user=user)
+		updatequan.cartquan = count
+		updatequan.save()
 		return redirect('allproduct-page')
 
 def MyCart(request):
 	username = request.user.username #ออกมาเป็น string
 	user = User.objects.get(username=username) #ออกมาเป็น objects
+	context = {}
+	if request.method == 'POST' :
+		# ใช้สำหรับการลบเท่านั้น
+		data = request.POST.copy()
+		productid = data.get('productid')
+		print('PID', productid)
+		item = Cart.objects.get(user=user,productid=productid) 
+		item.delete()
+		context['status'] = 'delete'
+
+		count = Cart.objects.filter(user=user)
+		count = sum([ c.quantity for c in count])
+		updatequan = Profile.objects.get(user=user)
+		updatequan.cartquan = count
+		updatequan.save()
+
 	mycart = Cart.objects.filter(user=user) #ใช้ .get ไม่ได้ เพราะ multiple (มีหลายอัน) ต้องใช้ filter เพราะ มีหลาย record 
-	context = {'mycart':mycart}
+	context['mycart'] = mycart
 	return render(request,'myapp/mycart.html',context)
 

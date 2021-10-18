@@ -3,18 +3,43 @@
 {% block article %}
 
 
-
-  
 <div class="container">
-      <h3>รถเข็นสินค้าของฉัน</h3>
-      
-            {% for pd in mycart %}
-                 <p>| {{pd.stamp}} | {{pd.productid}} | {{pd.productname}} | {{pd.price}} | 
-                 {{pd.quantity}} | {{pd.total}}</p> 
-            <hr>
-            {% endfor %}
-      
+	  <h2>รถเข็นสินค้าของฉัน</h2>
+	  <p>สินค้าทั้งหมดของลูกค้าที่อยู่ในตะกร้า พร้อมยืนยันการสั่งซื้อ</p>            
+	  <table class="table">
+	    <thead>
+		<tr>
+		  <th>เวลาสั่งซื้อล่าสุด</th>
+		  <th>รหัสสินค้า</th>
+		  <th>สินค้า</th>
+		  <th>ราคา</th>
+		  <th>จำนวน</th>
+		  <th>รวมยอด</th>
+		</tr>
+	    </thead>
+	    <tbody>
+	    {% for pd in mycart %}
+		<tr>
+		  <td>{{pd.stamp}}</td>
+		  <td>{{pd.productid}}</td>
+		  <td>{{pd.productname}}</td>
+		  <td>{{pd.price}}</td>
+		  <td>{{pd.quantity}}</td>
+		  <td>{{pd.total}}</td>
 
-</div>
+		  <th>
+		  <form method="POST" id="form{{pd.productid}}" onsubmit="return confirm('ยืนยันการลบสินค้าใช่หรือไม่?');" > 
+   			{% csrf_token %} 
+   			<input type="hidden" name="productid" value="{{pd.productid}}">
+		  	<button type="submit" form="form{{pd.productid}}" class="btn btn-danger">ลบ</button>
+		  </form>
+		  </th>
+		</tr>
+	    {% endfor %}
+	    </tbody>
+	  </table>
+</div>    
+
+
 {% endblock article %}
 
