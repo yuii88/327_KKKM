@@ -1,7 +1,12 @@
 {% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
 
 {% block article %}
-
+{% if status == 'delete' %}
+	<div class="alert alert-danger">
+	    <strong>ลบสินค้าเรียบร้อยแล้ว!</strong> หากต้องการสินค้าเพิ่ม กรุณากดสั่งสินค้าใหม่
+	</div>
+{% endif %}
+<br>
 
 <div class="container">
 	  <h2>รถเข็นสินค้าของฉัน</h2>
