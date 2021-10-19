@@ -224,4 +224,23 @@ def MyCartEdit(request):
 
 
 def Checkout(request):
+	if request.method == 'POST' :
+		data = request.POST.copy()
+		name = data.get('name')
+		tel = data.get('tel')
+		address = data.get('address')
+		shipping = data.get('shipping')
+		payment = data.get('payment')
+		other = data.get('other')
+		page = data.get('page')
+		if page == 'information':
+			context = {}
+			context['name'] = Name
+			context['tel'] = tel
+			context['address'] = address
+			context['shipping'] = shipping
+			context['payment'] = payment
+			context['other'] = other
+			return render(request, 'myapp/checkout2.html')
+
 	return render(request, 'myapp/checkout1.html')
