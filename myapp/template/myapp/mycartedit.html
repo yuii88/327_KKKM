@@ -39,11 +39,18 @@
 	    </tbody>
 	  </table>
 	  
-	  		<input type="hidden" name="checksave" value="checksave">
-			<button type="submit" form="formsave" class="btn btn-primary">บันทึก</button>
+			<input type="hidden" name="checksave" value="checksave">
+
 	  </form>
-
-
+	  <div class="row">
+		  <button type="submit" form="formsave" class="btn btn-primary">บันทึก</button>
+		  <div style="padding: 10px;"></div>
+		  <form id="formclear" method="POST" onsubmit="return confirm('ยืนยันการลบสินค้าใช่หรือไม่?');">
+		  	  {% csrf_token %}
+			  <input type="hidden" name="clear" value="clear">
+			  <button type="submit" form="formclear" class="btn btn-danger">ลบสินค้าทั้งหมด</button>
+		  </form>
+	  </div>
 </div>    
 
 

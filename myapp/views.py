@@ -176,6 +176,13 @@ def MyCartEdit(request):
 	if request.method == 'POST' : 
 		data = request.POST.copy()
 		#print(data)
+		if data.get('clear') == 'clear':
+			print(data.get('clear'))
+			Cart.objects.filter(user=user).delete()
+			updatequan = Profile.objects.get(user=user)
+			updatequan.cartquan = 0
+			updatequan.save()
+			return redirect('mycart-page')
 
 		editlist = []
 
@@ -189,7 +196,7 @@ def MyCartEdit(request):
 		#print('EDITLIST: ', editlist) #[[5, 5], [10, 6]] 10=productid,6=quan
 
 		for ed in editlist:
-			edit = Cart.objects.get(productid=ed[0]) #productid
+			edit = Cart.objects.get(productid=ed[0],user=user) #productid
 			edit.quantity = ed[1] #quan
 			calculate = edit.price * ed[1]
 			edit.total = calculate
