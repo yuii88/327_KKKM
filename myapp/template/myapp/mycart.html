@@ -1,4 +1,6 @@
 {% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
+{% load humanize %}
+
 
 {% block article %}
 {% if status == 'delete' %}
@@ -28,9 +30,9 @@
 		  <td>{{pd.stamp}}</td>
 		  <td>{{pd.productid}}</td>
 		  <td>{{pd.productname}}</td>
-		  <td>{{pd.price}}</td>
+		  <td>{{pd.price|intcomma}}</td>
 		  <td>{{pd.quantity}}</td>
-		  <td>{{pd.total}}</td>
+		  <td>{{pd.total|intcomma}}</td>
 
 		  <th>
 		  <form method="POST" id="form{{pd.productid}}" onsubmit="return confirm('ยืนยันการลบสินค้าใช่หรือไม่?');" > 
@@ -47,7 +49,7 @@
 	    	<td></td>
 	    	<td></td>
 	    	<td><h4>{{count}}</h4></td>
-	    	<td><h4>{{total}}</h4></td>
+	    	<td><h4>{{total|intcomma}}</h4></td>
 	    	<td></td>
 	    </tr>
 	    </tbody>

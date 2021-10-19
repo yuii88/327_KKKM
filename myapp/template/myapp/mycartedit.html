@@ -1,5 +1,5 @@
 {% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
-
+{% load humanize %}
 {% block article %}
 {% if status == 'delete' %}
 	<div class="alert alert-danger">
