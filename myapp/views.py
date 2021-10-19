@@ -193,6 +193,14 @@ def MyCartEdit(request):
 			edit = Cart.objects.get(productid=ed[0]) #productid
 			edit.quantity = ed[1] #quan
 			edit.save()
+
+
+
+		count = Cart.objects.filter(user=user)
+		count = sum([ c.quantity for c in count])
+		updatequan = Profile.objects.get(user=user)
+		updatequan.cartquan = count
+		updatequan.save()
 		return redirect('mycart-page')
 		#if data.get('checksave') =='checksave':
 		#return redirect('mycart-page')
