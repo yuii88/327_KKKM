@@ -38,6 +38,18 @@
                     <a class="nav-link" href="{% url 'allproduct-page' %}">สินค้าทั้งหมด</a>
                   </li> 
 
+                   <li class="nav-item dropdown"> 
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      ประเภทสินค้า</a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                      <a class="dropdown-item" href="#">เสื้อ</a>
+                      <a class="dropdown-item" href="#">กางเกง</a>
+                      <a class="dropdown-item" href="#">อื่นๆ</a>
+                    </div>
+                  </li>  
+
+
                   {% if user.is_authenticated and user.profile.usertype == 'member' %}
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'mycart-page' %}">รายการสั่งซื้อ<span class="badge badge-warning">{{user.profile.cartquan}}</span></a>
@@ -50,17 +62,7 @@
                     {% endif %}
                   </li>
 
-                  <li class="nav-item dropdown"> 
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      ประเภทสินค้า</a>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                      <a class="dropdown-item" href="#">เสื้อ</a>
-                      <a class="dropdown-item" href="#">กางเกง</a>
-                      <a class="dropdown-item" href="#">อื่นๆ</a>
-                    </div>
-                  </li>  
-
+                 
 
                 </ul>
 
