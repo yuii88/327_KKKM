@@ -175,23 +175,24 @@ def MyCartEdit(request):
 
 	if request.method == 'POST' : 
 		data = request.POST.copy()
-		print(data)
+		#print(data)
 
 		editlist = []
 
 		for k,v in data.items():
-			print(k,v)
+			#print(k,v)
 			# pv_7
 			if k[:2] == 'pd':
 				pid = int(k.split('_')[1]) 
 				dt = [pid,int(v)]
 				editlist.append(dt)
-		print('EDITLIST: ', editlist) #[[5, 5], [10, 6]] 10=productid,6=quan
+		#print('EDITLIST: ', editlist) #[[5, 5], [10, 6]] 10=productid,6=quan
 
 		for ed in editlist:
-
 			edit = Cart.objects.get(productid=ed[0]) #productid
 			edit.quantity = ed[1] #quan
+			calculate = edit.price * ed[1]
+			edit.total = calculate
 			edit.save()
 
 
