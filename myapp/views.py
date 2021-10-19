@@ -165,7 +165,12 @@ def MyCart(request):
 		updatequan.save()
 
 	mycart = Cart.objects.filter(user=user) #ใช้ .get ไม่ได้ เพราะ multiple (มีหลายอัน) ต้องใช้ filter เพราะ มีหลาย record 
+	count = sum([ c.quantity for c in mycart])
+	total = sum([ c.total for c in mycart])
+
 	context['mycart'] = mycart
+	context['count'] = count
+	context['total'] = total
 	return render(request,'myapp/mycart.html',context)
 
 def MyCartEdit(request):
