@@ -224,6 +224,8 @@ def MyCartEdit(request):
 
 
 def Checkout(request):
+	username = request.user.username #ออกมาเป็น string
+	user = User.objects.get(username=username)
 	if request.method == 'POST' :
 		data = request.POST.copy()
 		name = data.get('name')
@@ -235,12 +237,28 @@ def Checkout(request):
 		page = data.get('page')
 		if page == 'information':
 			context = {}
-			context['name'] = Name
+			context['name'] = name
 			context['tel'] = tel
 			context['address'] = address
 			context['shipping'] = shipping
 			context['payment'] = payment
 			context['other'] = other
-			return render(request, 'myapp/checkout2.html')
+
+			mycart = Cart.objects.filter(user=user) 
+			count = sum([ c.quantity for c in mycart])
+			total = sum([ c.total for c in mycart])
+
+			context['mycart'] = mycart
+			context['count'] = count
+			context['total'] = total
+			
+			return render(request, 'myapp/checkout2.html',context)
+		if page == 'confirm':
+			print('Confirm')
+			print(data)
+			# generate order no. and save to Order Models
+			# save product in cart to OrderProduct models
+			# clear cart
+			# redirect to order list page
 
 	return render(request, 'myapp/checkout1.html')

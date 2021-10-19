@@ -12,8 +12,8 @@
     {% csrf_token %} <!--ระบบ security of Django-->
 
     <div class="form-group">
-      <label for="first_name">ชื่อ-สกุลผู้รับ</label>
-      <input type="text" class="form-control" id="first_name" name="first_name">
+      <label for="name">ชื่อ-สกุลผู้รับ</label>
+      <input type="text" class="form-control" id="name" name="name">
     </div>
 
     <div class="form-group">
@@ -24,8 +24,7 @@
     <div class="form-group">
       <label for="address">ที่อยู่จัดส่ง</label>
       <textarea class="form-control" row="5" id="address" name="address"
-      placeholder="ตัวอย่าง: เลขที่ 126 ถนนประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140">
-      </textarea>
+      placeholder="ตัวอย่าง: เลขที่ 126 ถนนประชาอุทิศ แขวงบางมด เขตทุ่งครุ กรุงเทพมหานคร 10140"></textarea>
     </div>
 
   <p>---------------</p>
@@ -65,8 +64,7 @@
     <div class="form-group">
       <label for="other">หมายเหตุ</label>
       <textarea class="form-control" row="5" id="other" name="other"
-      placeholder="ฝากข้อความถึงผู้ขาย">
-      </textarea>
+      placeholder="ฝากข้อความถึงผู้ขาย"></textarea>
     </div>
 
     <input type="hidden" name="page" value="information">

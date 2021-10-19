@@ -1,0 +1,83 @@
+{% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
+{% load humanize %}
+
+
+{% block article %}
+<div class="container">
+	<h3>ข้อมูลการจัดส่ง</h3>
+	<p>
+		ชื่อผู้รับ: {{name}}<br>
+		เบอร์โทรศัพท์: {{tel}}<br>
+		ที่อยู่การจัดส่ง: {{address}}<br>
+		{% if shipping == 'ems' %}
+			รูปแบบการจัดส่ง: EMS
+		{% else %}
+			รูปแบบการจัดส่ง: ลงทะเบียน
+		{% endif %}<br>
+
+		{% if payment == 'transfer' %}
+			ชำระผ่าน: โอนเงินเข้าบัญชีธนาคาร
+		{% else %}
+			ชำระผ่าน: เก็บเงินปลายทาง
+		{% endif %}<br>
+		หมายเหตุ: {{other}}<br>
+
+	</p>
+
+
+
+</div>
+
+<div class="container">
+	  <h2>รถเข็นสินค้าทั้งหมด</h2>
+	  <p>สินค้าทั้งหมดของลูกค้าที่อยู่ในตะกร้า พร้อมยืนยันการสั่งซื้อ</p>            
+	  <table class="table">
+	    <thead>
+		<tr>
+		  <th>รหัสสินค้า</th>
+		  <th>สินค้า</th>
+		  <th>ราคา</th>
+		  <th>จำนวน</th>
+		  <th>รวมยอด</th>
+		</tr>
+	    </thead>
+	    <tbody>
+	    {% for pd in mycart %}
+		<tr>
+		  <td>{{pd.productid}}</td>
+		  <td>{{pd.productname}}</td>
+		  <td>{{pd.price|intcomma}}</td>
+		  <td>{{pd.quantity}}</td>
+		  <td>{{pd.total|intcomma}}</td>
+		</tr>
+	    {% endfor %}
+	    <tr>
+	    	<td><h2>Total</h2></td>
+	    	<td></td>
+	    	<td></td>
+	    	<td><h4>{{count}}</h4></td>
+	    	<td><h4>{{total|intcomma}}</h4></td>
+	    </tr>
+
+	    
+	    </tbody>
+	  </table>
+<br>
+	 
+	  
+</div>    
+
+<form method="POST" >
+	{% csrf_token %} 
+<input type="hidden" id="name" name="name" value="{{name}}">
+<input type="hidden" id="tel" name="tel" value="{{tel}}">
+<input type="hidden" id="address" name="address" value="{{address}}">
+<input type="hidden" id="shipping" name="shipping" value="{{shipping}}">
+<input type="hidden" id="payment" name="payment" value="{{payment}}">
+<input type="hidden" id="other" name="other" value="{{other}}">
+<input type="hidden" id="page" name="page" value="confirm">
+
+<button type="submit" class="btn btn-primary">Confirm</button>
+</form>
+{% endblock article %}
+
