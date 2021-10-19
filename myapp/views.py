@@ -221,3 +221,7 @@ def MyCartEdit(request):
 	mycart = Cart.objects.filter(user=user) #ใช้ .get ไม่ได้ เพราะ multiple (มีหลายอัน) ต้องใช้ filter เพราะ มีหลาย record 
 	context['mycart'] = mycart
 	return render(request,'myapp/mycartedit.html',context)
+
+
+def Checkout(request):
+	return render(request, 'myapp/checkout1.html')

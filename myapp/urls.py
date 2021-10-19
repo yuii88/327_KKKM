@@ -13,5 +13,6 @@ urlpatterns = [
 	path('addtocart/<int:pid>/',AddtoCart,name='addtocart-page'), #<int:pid> is number of product
 	path('mycart/',MyCart,name='mycart-page'),
 	path('mycart/edit/',MyCartEdit,name='mycartedit-page'),
+	path('checkout/1/',Checkout,name='checkout-page'),
 
 ]
