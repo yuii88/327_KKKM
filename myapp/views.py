@@ -168,3 +168,35 @@ def MyCart(request):
 	context['mycart'] = mycart
 	return render(request,'myapp/mycart.html',context)
 
+def MyCartEdit(request):
+	username = request.user.username #get ค่าว่าใครกำลังloginอยู่ตอนนี้ #ออกมาเป็น string
+	user = User.objects.get(username=username) #search ว่า usernameนี้เป็นใคร #ออกมาเป็น objects
+	context = {}
+
+	if request.method == 'POST' : 
+		data = request.POST.copy()
+		print(data)
+
+		editlist = []
+
+		for k,v in data.items():
+			print(k,v)
+			# pv_7
+			if k[:2] == 'pd':
+				pid = int(k.split('_')[1]) 
+				dt = [pid,int(v)]
+				editlist.append(dt)
+		print('EDITLIST: ', editlist) #[[5, 5], [10, 6]] 10=productid,6=quan
+
+		for ed in editlist:
+
+			edit = Cart.objects.get(productid=ed[0]) #productid
+			edit.quantity = ed[1] #quan
+			edit.save()
+		return redirect('mycart-page')
+		#if data.get('checksave') =='checksave':
+		#return redirect('mycart-page')
+
+	mycart = Cart.objects.filter(user=user) #ใช้ .get ไม่ได้ เพราะ multiple (มีหลายอัน) ต้องใช้ filter เพราะ มีหลาย record 
+	context['mycart'] = mycart
+	return render(request,'myapp/mycartedit.html',context)
