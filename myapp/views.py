@@ -4,6 +4,7 @@ from .models import *
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login
+from datetime import datetime
 
 #HttpResponse คือ function สำหรับทำให้แสดงข้อความหน้าเว็บไซต์ได้
 
@@ -256,9 +257,50 @@ def Checkout(request):
 		if page == 'confirm':
 			print('Confirm')
 			print(data)
+			mycart = Cart.objects.filter(user=user) # [['a','10']]
+
+			# id = OD0007 2020 09 03 22 00 30
+			# id = OD 0007 20200903220030
+			mid = str(user.id).zfill(4)
+			dt = datetime.now().strftime('%Y%m%d%H%M%S') # can search on google : what is strftime ?
+			orderid = 'OD' + mid + dt
+
+			for pd in mycart:
+				order = OrderList()
+				order.orderid = orderid
+				order.productid = pd.productid
+				order.productname = pd.productname
+				order.price = pd.price
+				order.quantity = pd.quantity
+				order.total= pd.total
+				order.save()
+
+			# create order pending
+
+			odp = OrderPending()
+			odp.orderid = orderid
+			odp.user = user
+			odp.name = name
+			odp.tel = tel
+			odp.address = address
+			odp.shipping = shipping
+			odp.payment = payment
+			odp.other = other
+			odp.save()
+
+			# clear cart
+			Cart.objects.filter(user=user).delete()
+			updatequan = Profile.objects.get(user=user)
+			updatequan.cartquan = 0
+			updatequan.save()
+			return redirect('mycart-page')
+
+
 			# generate order no. and save to Order Models
 			# save product in cart to OrderProduct models
 			# clear cart
 			# redirect to order list page
 
 	return render(request, 'myapp/checkout1.html')
+
+

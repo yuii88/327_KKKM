@@ -5,3 +5,5 @@ from .models import * # ดึง ไฟล์
 admin.site.register(Allproduct) #แสดง Allproduct ที่ Site administration
 admin.site.register(Profile)
 admin.site.register(Cart)
+admin.site.register(OrderList)
+admin.site.register(OrderPending)
