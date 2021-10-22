@@ -52,7 +52,7 @@ class OrderPending(models.Model):
 	address = models.TextField()
 	shipping = models.CharField(max_length=100)
 	payment = models.CharField(max_length=100)
-	other = models.TextField()
+	other = models.TextField() #ต้องเพิ่ม blank=True ด้วย
 	stamp = models.DateTimeField(auto_now_add=True,blank=True,null=True)
 	paid = models.BooleanField(default=False)
 	slip = models.ImageField(upload_to="gallery_slip",null=True,blank=True)

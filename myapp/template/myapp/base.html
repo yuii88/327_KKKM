@@ -54,6 +54,11 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'mycart-page' %}">รถเข็นสินค้า&nbsp<span class="badge badge-warning">{{user.profile.cartquan}}</span></a>
                   </li> 
+
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'orderlist-page' %}">รายการสั่งซื้อ&nbsp</a>
+                  </li>
+                  
                   {% endif %}
 
                   <li class="nav-item">

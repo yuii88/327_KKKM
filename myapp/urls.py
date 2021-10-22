@@ -14,5 +14,7 @@ urlpatterns = [
 	path('mycart/',MyCart,name='mycart-page'),
 	path('mycart/edit/',MyCartEdit,name='mycartedit-page'),
 	path('checkout/',Checkout,name='checkout-page'),
+	path('orderlist/',OrderListPage,name='orderlist-page'),
+
 
 ]
