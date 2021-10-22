@@ -58,17 +58,19 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{% url 'orderlist-page' %}">รายการสั่งซื้อ&nbsp</a>
                   </li>
-                  
+
                   {% endif %}
 
+
+                  {% if user.is_authenticated and user.profile.usertype == 'admin' %} <!--จะshow when you login-->
                   <li class="nav-item">
-                    {% if user.is_authenticated and user.profile.usertype == 'admin' %} <!--จะshow when you login-->
                       <a class="nav-link" href="{% url 'addproduct-page' %}">เพิ่มสินค้า</a>
-                    {% endif %}
                   </li>
 
-                 
-
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'allorderlist-page' %}">รายการสั่งซื้อทั้งหมด&nbsp</a>
+                  </li>
+                  {% endif %}
                 </ul>
 
                           {% if user.is_authenticated %}

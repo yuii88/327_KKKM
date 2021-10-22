@@ -303,4 +303,40 @@ def Checkout(request):
 
 	return render(request, 'myapp/checkout1.html')
 
+def OrderListPage(request):
+	username = request.user.username #ออกมาเป็น string
+	user = User.objects.get(username=username) #ออกมาเป็น objects
+	context = {}
 
+	order = OrderPending.objects.filter(user=user)
+
+	for od in order:
+		orderid = od.orderid
+		orderlist = OrderList.objects.filter(orderid=orderid) 
+		total = sum([ c.total for c in orderlist])
+		od.total = total
+
+
+
+	context['allorder'] = order
+
+
+	return render(request, 'myapp/orderlist.html',context)
+
+def AllOrderListPage(request):
+
+	context = {}
+	order = OrderPending.objects.all()
+
+	for od in order:
+		orderid = od.orderid
+		orderlist = OrderList.objects.filter(orderid=orderid) 
+		total = sum([ c.total for c in orderlist])
+		od.total = total
+
+
+
+	context['allorder'] = order
+
+
+	return render(request, 'myapp/allorderlist.html',context)

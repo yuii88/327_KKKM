@@ -6,7 +6,7 @@
 
 
 <div class="container">
-	  <h2>รายการสั่งซื้อทั้งหมด</h2>
+	  <h2>รายการสั่งซื้อทั้งหมด (admin)</h2>
 	  <p>รายการสั่งซื้อและสถานะการสั่งซื้อ</p>            
 	  <table class="table">
 	    <thead>
@@ -21,7 +21,7 @@
 	    {% for od in allorder %}
 		<tr>
 		  <td>{{od.stamp}}</td>
-		  <td>{{od.orderid}}</td>
+		  <td>{{od.orderid}} ({{od.name}})</td>
 		  <td>{{od.total|intcomma}}</td>
 		  <td>
 
