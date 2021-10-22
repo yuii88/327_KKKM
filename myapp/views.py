@@ -340,3 +340,8 @@ def AllOrderListPage(request):
 
 
 	return render(request, 'myapp/allorderlist.html',context)
+
+
+def UploadSlip(request,orderid):
+	print('ODER ID: ',orderid)
+	return render(request,'myapp/uploadslip.html')

@@ -16,5 +16,6 @@ urlpatterns = [
 	path('checkout/',Checkout,name='checkout-page'),
 	path('orderlist/',OrderListPage,name='orderlist-page'),
 	path('allorderlist/',AllOrderListPage,name='allorderlist-page'),
+	path('uploadslip/<str:orderid>/',UploadSlip,name='uploadslip-page'),
 
 ]
