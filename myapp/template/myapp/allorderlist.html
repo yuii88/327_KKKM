@@ -9,33 +9,33 @@
 	  <h2>รายการสั่งซื้อทั้งหมด (admin)</h2>
 	  <p>รายการสั่งซื้อและสถานะการสั่งซื้อ</p>            
 	  <table class="table">
-	    <thead>
+		<thead>
 		<tr>
 		  <th>เวลาสั่งซื้อ</th>
 		  <th>order id</th>
 		  <th>ยอดรวม</th>
-		  <th>สถานะ</th>
+		  <th>สลิป</th>
 		</tr>
-	    </thead>
-	    <tbody>
-	    {% for od in allorder %}
+		</thead>
+		<tbody>
+		{% for od in allorder %}
 		<tr>
 		  <td>{{od.stamp}}</td>
 		  <td>{{od.orderid}} ({{od.name}})</td>
 		  <td>{{od.total|intcomma}}</td>
 		  <td>
 
-		  {% if od.paid %}
-		  	จ่ายแล้ว
+		  {% if od.slip %}
+			<a href="{{od.slip.url}}">ดูสลิป </a>
 		  {% else %}
-		  	<a href="{% url 'uploadslip-page' od.orderid %}" class="btn btn-primary">อัพโหลดสลิป</a>
+			ยังไม่โอน
 		  {% endif %}
 
-		</td>
+		  </td>
 		</tr>
-	    {% endfor %}
+		{% endfor %}
 
-	    </tbody>
+		</tbody>
 	  </table>
 
 

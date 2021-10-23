@@ -344,4 +344,46 @@ def AllOrderListPage(request):
 
 def UploadSlip(request,orderid):
 	print('ODER ID: ',orderid)
-	return render(request,'myapp/uploadslip.html')
+
+	if request.method == 'POST' and request.FILES['slip']:
+		data = request.POST.copy()
+		sliptime = data.get('sliptime')
+	
+		update = OrderPending.objects.get(orderid=orderid)
+		update.sliptime = sliptime
+		file_image = request.FILES['slip'] #file ที่เรา upload มา (ที่กด submit)
+		file_image_name = request.FILES['slip'].name.replace(' ','') # ทำช่องว่างให้ติดกัน
+		print('FILE_IMAGE:',file_image)
+		print('IMAGE_NAME:',file_image_name)
+		fs = FileSystemStorage()
+		filename = fs.save(file_image_name,file_image)
+		upload_file_url = fs.url(filename)
+		update.slip = upload_file_url[6:]
+		update.save()
+
+
+	odlist = OrderList.objects.filter(orderid=orderid) #odlist คือ allorderlist
+	total = sum([ c.total for c in odlist])
+	oddetail = OrderPending.objects.get(orderid=orderid) 
+	# คำนวณค่าส่งตามประเภท
+	count = sum([ c.quantity for c in odlist])
+	if oddetail.shipping == 'ems':
+		shipcost = sum([50 if i == 0 else 10 for i in range(count)])
+	else:
+		shipcost = sum([30 if i == 0 else 10 for i in range(count)])
+	
+	if oddetail.payment == 'cod':
+		shipcost += 30 
+
+	context = {'orderid':orderid,
+			   'total':total,
+			   'shipcost':shipcost,
+			   'grandtotal':total+shipcost,
+			   'oddetail':oddetail,
+			   'count':count}
+
+	
+
+
+# shipcost = รวมค่าทั้งหมด (หากเป็นชิ้นแรกค่าส่งจะคิด 50บาท ชิ้นถัดไปชิ้นละ10บาท)
+	return render(request,'myapp/uploadslip.html',context)
