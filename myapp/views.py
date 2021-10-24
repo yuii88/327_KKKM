@@ -309,13 +309,43 @@ def OrderListPage(request):
 	context = {}
 
 	order = OrderPending.objects.filter(user=user)
+	'''
+	-order
+		-orderid: OD2105012
+		-user:
+		-name: ผู้รับ
 
+	'''
 	for od in order:
 		orderid = od.orderid
 		orderlist = OrderList.objects.filter(orderid=orderid) 
-		total = sum([ c.total for c in orderlist])
-		od.total = total
+		'''
+		-orlist
+			-object (1)
+			-orderid: OD102150
+			-product: เสื้อม่วง
+			-total: 280
+			-object (2)
+			-orderid: OD20235
+			-product: เสื้อฟ้า
+			-total: 260
 
+		'''
+	total = sum([ c.total for c in orderlist])
+	# total = sum([280,260])
+	od.total = total
+	#สั่งนับว่า order นี่มีจำนวนกี่ชิ้น
+	count = sum([ c.quantity for c in odlist])
+
+	if oddetail.shipping == 'ems':
+		shipcost = sum([50 if i == 0 else 10 for i in range(count)])
+	else:
+		shipcost = sum([30 if i == 0 else 10 for i in range(count)])
+	
+	if oddetail.payment == 'cod':
+		shipcost += 30 
+
+	od.shipcost = shipcost
 
 
 	context['allorder'] = order
@@ -401,3 +431,22 @@ def UpdatePaid(request,orderid,status):
 		order.paid = False
 	order.save()
 	return redirect('allorderlist-page')
+
+def UpdateTracking(request,orderid):
+	if request.user.profile.usertype != 'admin':
+		return redirect('home-page')
+
+
+	if request.method == 'POST' : # มีการกด submit ค่าจาก html ก็จะ get ค่า
+		order = OrderPending.objects.get(orderid=orderid)
+		data = request.POST.copy()
+		trackingnumber = data.get('trackingnumber')
+		order.trackingnumber = trackingnumber
+		order.save()
+		return redirect('allorderlist-page')
+
+	context = {'orderid':orderid}
+		
+
+	return render(request,'myapp/updatetracking.html',context)
+	

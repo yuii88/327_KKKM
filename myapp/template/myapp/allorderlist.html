@@ -16,13 +16,14 @@
 		  <th>ยอดรวม</th>
 		  <th>สลิป</th>
 		  <th>จ่ายแล้ว</th>
+		  <th>Tracking No.</th>
 		</tr>
 		</thead>
 		<tbody>
 		{% for od in allorder %}
 		<tr>
 		  <td>{{od.stamp}}</td>
-		  <td>{{od.orderid}} ({{od.name}})</td>
+		  <td><a href="{% url 'updatetracking' od.orderid %}">{{od.orderid}}</a> ({{od.name}})</td>
 		  <td>{{od.total|intcomma}}</td>
 		  <td>
 
@@ -40,9 +41,14 @@
 		  	{% elif od.paid == False and not od.slip %}
 		  		<i class="fa fa-times-circle" style="font-size: 30px ;color:red;"></i>
 		  	{% else %}
-		  		<a class="btn btn-light" href="{% url 'updatestatus' od.orderid 'confirm' %}"><i class="fa fa-plus-square" style="font-size: 15px ;color:blue;">ยืนยัน</i></a>
+		  		<a class="btn btn-light" href="{% url 'updatestatus' od.orderid 'confirm' %}"><i class="fa fa-plus-square" style="font-size: 15px ;color:blue;">&nbsp&nbspยืนยัน</i></a>
 		  	{% endif %}
 		  </td>
+		  <td>
+		  	{% if od.trackingnumber != None %}
+		  		{{od.trackingnumber}}
+		  	{% endif %}
+		</td>
 
 		</tr>
 		{% endfor %}

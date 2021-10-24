@@ -58,6 +58,7 @@ class OrderPending(models.Model):
 	slip = models.ImageField(upload_to="gallery_slip",null=True,blank=True)
 	sliptime = models.CharField(max_length=200,null=True,blank=True)
 	paymentid = models.CharField(max_length=200,null=True,blank=True)
+	trackingnumber = models.CharField(max_length=200,null=True,blank=True)
 
 	def __str__(self): 
 		return self.orderid

@@ -15,6 +15,7 @@
 		  <th>order id</th>
 		  <th>ยอดรวม</th>
 		  <th>สถานะ</th>
+		  <th>Tracking No.</th>
 		</tr>
 	    </thead>
 	    <tbody>
@@ -26,11 +27,17 @@
 		  <td>
 
 		  {% if od.paid %}
-		  	จ่ายแล้ว
+		  	<i class="fa fa-money" style="font-size: 15px ;color:green;"></i>&nbsp&nbspจ่ายเงินแล้ว
 		  {% else %}
 		  	<a href="{% url 'uploadslip-page' od.orderid %}" class="btn btn-primary">อัพโหลดสลิป</a>
 		  {% endif %}
 
+		</td>
+
+		<td>
+			{% if od.trackingnumber != None %}
+		  		{{od.trackingnumber}}
+		  	{% endif %}
 		</td>
 		</tr>
 	    {% endfor %}
