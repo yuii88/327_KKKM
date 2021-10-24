@@ -59,3 +59,5 @@ class OrderPending(models.Model):
 	sliptime = models.CharField(max_length=200,null=True,blank=True)
 	paymentid = models.CharField(max_length=200,null=True,blank=True)
 
+	def __str__(self): 
+		return self.orderid

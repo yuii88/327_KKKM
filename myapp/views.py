@@ -387,3 +387,17 @@ def UploadSlip(request,orderid):
 
 # shipcost = รวมค่าทั้งหมด (หากเป็นชิ้นแรกค่าส่งจะคิด 50บาท ชิ้นถัดไปชิ้นละ10บาท)
 	return render(request,'myapp/uploadslip.html',context)
+
+
+
+def UpdatePaid(request,orderid,status):
+	if request.user.profile.usertype != 'admin':
+		return redirect('home-page')
+
+	order = OrderPending.objects.get(orderid=orderid)
+	if status == 'confirm':
+		order.paid = True
+	elif status == 'cancel':
+		order.paid = False
+	order.save()
+	return redirect('allorderlist-page')

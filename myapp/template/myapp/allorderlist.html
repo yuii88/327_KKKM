@@ -15,6 +15,7 @@
 		  <th>order id</th>
 		  <th>ยอดรวม</th>
 		  <th>สลิป</th>
+		  <th>จ่ายแล้ว</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -28,10 +29,21 @@
 		  {% if od.slip %}
 			<a href="{{od.slip.url}}">ดูสลิป </a>
 		  {% else %}
-			ยังไม่โอน
+			<i class="fa fa-times-circle" style="font-size: 30px ;color:red;"></i>
 		  {% endif %}
 
 		  </td>
+
+		  <td>
+		  	{% if od.paid and od.slip %}
+		  		<a href="{% url 'updatestatus' od.orderid 'cancel' %}"><i class="	fa fa-check-circle" style="font-size: 30px ;color:green;"></i></a>
+		  	{% elif od.paid == False and not od.slip %}
+		  		<i class="fa fa-times-circle" style="font-size: 30px ;color:red;"></i>
+		  	{% else %}
+		  		<a class="btn btn-light" href="{% url 'updatestatus' od.orderid 'confirm' %}"><i class="fa fa-plus-square" style="font-size: 15px ;color:blue;">ยืนยัน</i></a>
+		  	{% endif %}
+		  </td>
+
 		</tr>
 		{% endfor %}
 
