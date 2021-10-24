@@ -14,6 +14,8 @@
 		  <th>เวลาสั่งซื้อ</th>
 		  <th>order id</th>
 		  <th>ยอดรวม</th>
+		  <th>ค่าส่ง</th>
+		  <th>ยอดโอน</th>
 		  <th>สถานะ</th>
 		  <th>Tracking No.</th>
 		</tr>
@@ -24,7 +26,9 @@
 		  <td>{{od.stamp}}</td>
 		  <td>{{od.orderid}}</td>
 		  <td>{{od.total|intcomma}}</td>
-		  <td>
+		  <td>{{od.shipcost|intcomma}}</td>
+		  <td>{{od.total|add:od.shipcost|intcomma}}</td>
+		  <td> 
 
 		  {% if od.paid %}
 		  	<i class="fa fa-money" style="font-size: 15px ;color:green;"></i>&nbsp&nbspจ่ายเงินแล้ว

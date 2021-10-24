@@ -14,6 +14,8 @@
 		  <th>เวลาสั่งซื้อ</th>
 		  <th>order id</th>
 		  <th>ยอดรวม</th>
+		  <th>ค่าส่ง</th>
+		  <th>ยอดโอน</th>
 		  <th>สลิป</th>
 		  <th>จ่ายแล้ว</th>
 		  <th>Tracking No.</th>
@@ -25,6 +27,8 @@
 		  <td>{{od.stamp}}</td>
 		  <td><a href="{% url 'updatetracking' od.orderid %}">{{od.orderid}}</a> ({{od.name}})</td>
 		  <td>{{od.total|intcomma}}</td>
+		  <td>{{od.shipcost|intcomma}}</td>
+		  <td>{{od.total|add:od.shipcost|intcomma}}</td>
 		  <td>
 
 		  {% if od.slip %}

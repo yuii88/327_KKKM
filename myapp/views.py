@@ -318,7 +318,7 @@ def OrderListPage(request):
 	'''
 	for od in order:
 		orderid = od.orderid
-		orderlist = OrderList.objects.filter(orderid=orderid) 
+		odlist = OrderList.objects.filter(orderid=orderid) 
 		'''
 		-orlist
 			-object (1)
@@ -331,21 +331,20 @@ def OrderListPage(request):
 			-total: 260
 
 		'''
-	total = sum([ c.total for c in orderlist])
-	# total = sum([280,260])
-	od.total = total
-	#สั่งนับว่า order นี่มีจำนวนกี่ชิ้น
-	count = sum([ c.quantity for c in odlist])
+		total = sum([ c.total for c in odlist])
+		# total = sum([280,260])
+		od.total = total
+		#สั่งนับว่า order นี่มีจำนวนกี่ชิ้น
+		count = sum([ c.quantity for c in odlist])
 
-	if oddetail.shipping == 'ems':
-		shipcost = sum([50 if i == 0 else 10 for i in range(count)])
-	else:
-		shipcost = sum([30 if i == 0 else 10 for i in range(count)])
-	
-	if oddetail.payment == 'cod':
-		shipcost += 30 
-
-	od.shipcost = shipcost
+		if od.shipping == 'ems':
+			shipcost = sum([50 if i == 0 else 10 for i in range(count)])
+		else:
+			shipcost = sum([30 if i == 0 else 10 for i in range(count)])
+		
+		if od.payment == 'cod':
+			shipcost += 30 
+		od.shipcost = shipcost
 
 
 	context['allorder'] = order
@@ -360,9 +359,20 @@ def AllOrderListPage(request):
 
 	for od in order:
 		orderid = od.orderid
-		orderlist = OrderList.objects.filter(orderid=orderid) 
-		total = sum([ c.total for c in orderlist])
+		odlist = OrderList.objects.filter(orderid=orderid) 
+		total = sum([ c.total for c in odlist])
 		od.total = total
+
+		count = sum([ c.quantity for c in odlist])
+
+		if od.shipping == 'ems':
+			shipcost = sum([50 if i == 0 else 10 for i in range(count)])
+		else:
+			shipcost = sum([30 if i == 0 else 10 for i in range(count)])
+		
+		if od.payment == 'cod':
+			shipcost += 30 
+		od.shipcost = shipcost
 
 
 
