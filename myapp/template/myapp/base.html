@@ -28,10 +28,6 @@
                 <ul class="navbar-nav mr-auto">
 
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about-page' %}">เกี่ยวกับ</a>
-                  </li>
-
-                  <li class="nav-item">
                     <a class="nav-link" href="{% url 'contact-page' %}">ติดต่อเรา </a>
                   </li>
 
@@ -39,7 +35,7 @@
                     <a class="nav-link" href="{% url 'allproduct-page' %}">สินค้าทั้งหมด</a>
                   </li> 
 
-                   <li class="nav-item dropdown"> 
+                 <!--  <li class="nav-item dropdown"> 
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       ประเภทสินค้า</a>
 
@@ -48,7 +44,7 @@
                       <a class="dropdown-item" href="#">กางเกง</a>
                       <a class="dropdown-item" href="#">อื่นๆ</a>
                     </div>
-                  </li>  
+                  </li>  -->
 
 
                   {% if user.is_authenticated and user.profile.usertype == 'member' %}
