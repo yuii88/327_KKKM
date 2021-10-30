@@ -19,5 +19,6 @@ urlpatterns = [
 	path('uploadslip/<str:orderid>/',UploadSlip,name='uploadslip-page'),
 	path('updatestatus/<str:orderid>/<str:status>/',UpdatePaid,name='updatestatus'),
 	path('updatetracking/<str:orderid>/',UpdateTracking,name='updatetracking'),
+	path('myorder/<str:orderid>/',MyOrder,name='myorder-page'),
 
 ]

@@ -24,7 +24,7 @@
 	    {% for od in allorder %}
 		<tr>
 		  <td>{{od.stamp}}</td>
-		  <td>{{od.orderid}}</td>
+		  <td><a href="{% url 'myorder-page' od.orderid %}">{{od.orderid}}</a> </td>
 		  <td>{{od.total|intcomma}}</td>
 		  <td>{{od.shipcost|intcomma}}</td>
 		  <td>{{od.total|add:od.shipcost|intcomma}}</td>

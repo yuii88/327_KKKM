@@ -455,8 +455,50 @@ def UpdateTracking(request,orderid):
 		order.save()
 		return redirect('allorderlist-page')
 
-	context = {'orderid':orderid}
+
+	order = OrderPending.objects.get(orderid=orderid)
+	odlist = OrderList.objects.filter(orderid=orderid) 
+
+	total = sum([ c.total for c in odlist])
+	order.total = total
+	# คำนวณค่าส่งตามประเภท
+	count = sum([ c.quantity for c in odlist])
+	
+	if order.shipping == 'ems':
+		shipcost = sum([50 if i == 0 else 10 for i in range(count)])
+	else:
+		shipcost = sum([30 if i == 0 else 10 for i in range(count)])
+	
+	if order.payment == 'cod':
+		shipcost += 30 
+	order.shipcost = shipcost
+
+	context = {'order':order,'odlist':odlist,'total':total,'count':count}
 		
 
 	return render(request,'myapp/updatetracking.html',context)
 	
+def MyOrder(request,orderid):
+	username = request.user.username # check user that has login
+	user = User.objects.get(username=username) #ออกมาเป็น objects
+
+	order = OrderPending.objects.get(orderid=orderid)
+	odlist = OrderList.objects.filter(orderid=orderid) 
+
+	total = sum([ c.total for c in odlist])
+	order.total = total
+	# คำนวณค่าส่งตามประเภท
+	count = sum([ c.quantity for c in odlist])
+
+	if order.shipping == 'ems':
+		shipcost = sum([50 if i == 0 else 10 for i in range(count)])
+	else:
+		shipcost = sum([30 if i == 0 else 10 for i in range(count)])
+	
+	if order.payment == 'cod':
+		shipcost += 30 
+	order.shipcost = shipcost
+
+	context = {'order':order,'odlist':odlist,'total':total,'count':count}
+	
+	return render(request,'myapp/myorder.html',context)

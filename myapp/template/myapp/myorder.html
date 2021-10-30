@@ -1,0 +1,87 @@
+{% extends 'myapp/base.html' %} <!--ใน '' คือชื่อไฟล์ที่เก็บไฟล์ base.html -->
+{% load humanize %}
+
+
+{% block article %}
+<div class="container">
+	<h3>ข้อมูลการจัดส่ง</h3>
+	<p>
+		ชื่อผู้รับ: {{order.name}}<br>
+		เบอร์โทรศัพท์: {{order.tel}}<br>
+		ที่อยู่การจัดส่ง: {{order.address}}<br>
+		{% if order.shipping == 'ems' %}
+			รูปแบบการจัดส่ง: EMS
+		{% else %}
+			รูปแบบการจัดส่ง: ลงทะเบียน
+		{% endif %}<br>
+
+		{% if order.payment == 'transfer' %}
+			ชำระผ่าน: โอนเงินเข้าบัญชีธนาคาร
+		{% else %}
+			ชำระผ่าน: เก็บเงินปลายทาง
+		{% endif %}<br>
+		หมายเหตุ: {{other}}<br>
+
+	</p>
+
+
+
+</div>
+
+<div class="container">
+	  <h2>รถเข็นสินค้าทั้งหมด</h2>
+	  <p>สินค้าทั้งหมดของลูกค้าที่อยู่ในตะกร้า พร้อมยืนยันการสั่งซื้อ</p>            
+	 <table class="table">
+	   <thead>
+		<tr>
+		  <th>รหัสสินค้า</th>
+		  <th>สินค้า</th>
+		  <th style="text-align: right;">ราคา</th>
+		  <th style="text-align: right;">จำนวน</th>
+		  <th style="text-align: right;">รวมยอด</th>
+		</tr>
+	   </thead>
+	   <tbody>
+	   {% for pd in odlist %}
+		<tr>
+		  <td>{{pd.id}}</td>
+		  <td>{{pd.productname}}</td>
+		  <td style="text-align: right;">{{pd.price|intcomma}}</td>
+		  <td style="text-align: right;">{{pd.quantity}}</td>
+		  <td style="text-align: right;">{{pd.total|intcomma}}</td>
+		</tr>
+	   {% endfor %}
+	    <tr>
+	    	<td><h4>Total (ไม่รวมค่าจัดส่ง)</h4></td>
+	    	<td></td>
+	    	<td></td>
+	    	<td style="text-align: right;"><h4>{{count|intcomma}}</h4></td>
+	    	<td style="text-align: right;"><h4>{{total|intcomma}}</h4></td>
+	    </tr>
+
+	    
+	   </tbody>
+	 </table>
+<br>
+
+<h4>ค่าส่ง: {{order.shipcost|intcomma}} บาท</h4>
+<h3 style="color: darkolivegreen;">รวมยอดโอนทั้งหมด : {{total|add:order.shipcost|intcomma}} บาท</h3>
+	  
+<p>
+	<h4>โอนเงินผ่านเลขบัญขีนี้ได้เลย<br></h4>
+	ธนาคารกสิกร (K-Bank) สาขา บิ๊กซี นครปฐม<br>
+	เลขที่บัญชี: 0502642642<br>
+	ชื่อบัญชี: Pimlapas Mobchan<br><br>
+
+	ธนาคารไทยพาณิชย์ (SCB) สาขา บิ๊กซีนครปฐม<br>
+	เลขที่บัญชี: 8302328415<br>
+	ชื่อบัญชี: Pimlapas Mobchan<br><br>
+
+	<h4 style="color: red;">*รบกวนอัพโหลดสลิปโอนเงินด้วยนะคะ*<br></h4>
+	<h3 class="container centre" style="color: blueviolet;"> หากมีปัญหาในการจัดส่ง โปรดติดต่อแอดมินค่ะ ขอบคุณค่ะ </h3> <br>
+
+</p>
+</div>    
+
+{% endblock article %}
+
